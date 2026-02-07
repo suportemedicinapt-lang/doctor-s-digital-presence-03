@@ -7,11 +7,9 @@ interface HeaderProps {
   whatsapp: string;
 }
 
-// TODO: Substituir props por dados dinâmicos do Med.ID
 export function Header({ nome, whatsapp }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // TODO: Implementar link dinâmico do WhatsApp
   const whatsappLink = `https://wa.me/${whatsapp.replace(/\D/g, "")}?text=Olá! Gostaria de agendar uma consulta.`;
 
   const navItems = [
@@ -22,13 +20,16 @@ export function Header({ nome, whatsapp }: HeaderProps) {
     { label: "Dúvidas", href: "#faq" },
   ];
 
+  // Pegar apenas as primeiras duas palavras do nome para o logo
+  const logoName = nome !== "{{nome}}" ? nome.split(" ").slice(0, 2).join(" ") : "MedTemplate";
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b">
       <div className="container-wide">
         <div className="flex items-center justify-between h-16 md:h-20 px-4 md:px-6 lg:px-8">
           {/* Logo / Nome */}
           <a href="#" className="font-semibold text-lg text-foreground">
-            {nome.split(" ").slice(0, 2).join(" ")}
+            {logoName}
           </a>
 
           {/* Nav Desktop */}

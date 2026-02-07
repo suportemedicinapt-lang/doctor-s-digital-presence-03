@@ -4,20 +4,18 @@ import { MessageCircle, MapPin, Phone } from "lucide-react";
 interface FinalCTAProps {
   nome: string;
   especialidade: string;
-  cidadeBairro: string;
+  endereco: string;
   whatsapp: string;
   telefone: string;
 }
 
-// TODO: Substituir props por dados dinâmicos do Med.ID
 export function FinalCTA({
   nome,
   especialidade,
-  cidadeBairro,
+  endereco,
   whatsapp,
   telefone,
 }: FinalCTAProps) {
-  // TODO: Implementar link dinâmico do WhatsApp
   const whatsappLink = `https://wa.me/${whatsapp.replace(/\D/g, "")}?text=Olá! Gostaria de agendar uma consulta com ${nome}.`;
 
   return (
@@ -44,7 +42,7 @@ export function FinalCTA({
           {/* Localização */}
           <div className="inline-flex items-center gap-2 text-primary-foreground/80 mb-8">
             <MapPin className="w-5 h-5" />
-            <span>{cidadeBairro}</span>
+            <span>{endereco}</span>
           </div>
 
           {/* CTAs */}

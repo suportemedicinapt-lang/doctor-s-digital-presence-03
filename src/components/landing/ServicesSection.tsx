@@ -1,15 +1,22 @@
-import { CheckCircle2 } from "lucide-react";
-import type { AreaAtuacao } from "@/types/doctor";
+import { Stethoscope, HeartPulse, FileSearch, ClipboardList, LucideIcon } from "lucide-react";
+import type { ServicoData } from "@/types/doctor";
+
+// Mapeamento de ícones por nome
+const iconMap: Record<string, LucideIcon> = {
+  Stethoscope,
+  HeartPulse,
+  FileSearch,
+  ClipboardList,
+};
 
 interface ServicesSectionProps {
   especialidade: string;
-  areasAtuacao: AreaAtuacao[];
+  servicos: ServicoData[];
 }
 
-// TODO: Substituir props por dados dinâmicos do Med.ID
 export function ServicesSection({
   especialidade,
-  areasAtuacao,
+  servicos,
 }: ServicesSectionProps) {
   return (
     <section id="servicos" className="section-padding">
@@ -29,26 +36,29 @@ export function ServicesSection({
 
         {/* Grid de serviços */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {areasAtuacao.map((area, index) => (
-            <div
-              key={index}
-              className="group p-6 rounded-2xl bg-card border shadow-sm card-hover"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <CheckCircle2 className="w-5 h-5 text-primary" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-foreground text-lg">
-                    {area.titulo}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {area.descricao}
-                  </p>
+          {servicos.map((servico, index) => {
+            const IconComponent = iconMap[servico.icone] || Stethoscope;
+            return (
+              <div
+                key={index}
+                className="group p-6 rounded-2xl bg-card border shadow-sm card-hover"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <IconComponent className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-foreground text-lg">
+                      {servico.titulo}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {servico.descricao}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Nota CFM */}
