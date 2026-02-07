@@ -5,24 +5,25 @@ interface HeroProps {
   nome: string;
   especialidade: string;
   crm: string;
-  uf: string;
-  cidadeBairro: string;
-  fotoUrl?: string;
+  endereco: string;
+  foto?: string;
   whatsapp: string;
 }
 
-// TODO: Substituir props por dados dinâmicos do Med.ID
 export function Hero({
   nome,
   especialidade,
   crm,
-  uf,
-  cidadeBairro,
-  fotoUrl,
+  endereco,
+  foto,
   whatsapp,
 }: HeroProps) {
-  // TODO: Implementar link dinâmico do WhatsApp
   const whatsappLink = `https://wa.me/${whatsapp.replace(/\D/g, "")}?text=Olá! Gostaria de agendar uma consulta.`;
+
+  // Verificar se os dados são placeholders
+  const displayNome = nome !== "{{nome}}" ? nome : "Médico(a)";
+  const displayEndereco = endereco !== "{{endereco}}" ? endereco : "Sua cidade";
+  const displayCrm = crm !== "{{crm}}" ? crm : "000000";
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
@@ -41,7 +42,7 @@ export function Hero({
             {/* Badge CRM */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-badge text-badge-foreground text-sm font-medium">
               <Award className="w-4 h-4" />
-              <span>CRM {crm}/{uf}</span>
+              <span>CRM {displayCrm}</span>
             </div>
 
             {/* Headline */}
@@ -50,7 +51,7 @@ export function Hero({
                 Cuidado em{" "}
                 <span className="text-gradient">{especialidade}</span>
                 <br />
-                em {cidadeBairro}
+                em {displayEndereco}
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground max-w-xl leading-relaxed">
                 Atendimento humanizado e personalizado, com foco no seu bem-estar e qualidade de vida.
@@ -95,10 +96,10 @@ export function Hero({
               
               {/* Container da foto */}
               <div className="relative w-72 h-80 md:w-80 md:h-96 lg:w-96 lg:h-[28rem] rounded-2xl overflow-hidden bg-muted shadow-xl">
-                {fotoUrl ? (
+                {foto && foto !== "{{foto}}" ? (
                   <img
-                    src={fotoUrl}
-                    alt={`Foto de ${nome}`}
+                    src={foto}
+                    alt={`Foto de ${displayNome}`}
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -107,11 +108,11 @@ export function Hero({
                     <div className="text-center space-y-3 p-6">
                       <div className="w-24 h-24 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
                         <span className="text-4xl text-primary font-semibold">
-                          {nome.charAt(0) || "M"}
+                          {displayNome.charAt(0) || "M"}
                         </span>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        Foto do(a) {nome}
+                        Foto do(a) {displayNome}
                       </p>
                     </div>
                   </div>
@@ -120,7 +121,7 @@ export function Hero({
 
               {/* Card flutuante com nome */}
               <div className="absolute -bottom-4 -left-4 md:-left-8 bg-card rounded-xl p-4 shadow-lg border">
-                <p className="font-semibold text-foreground">{nome}</p>
+                <p className="font-semibold text-foreground">{displayNome}</p>
                 <p className="text-sm text-muted-foreground">{especialidade}</p>
               </div>
             </div>

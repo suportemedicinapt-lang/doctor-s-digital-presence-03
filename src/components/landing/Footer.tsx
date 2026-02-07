@@ -1,32 +1,19 @@
-import { Instagram, Facebook, Linkedin, Youtube } from "lucide-react";
+import { Instagram } from "lucide-react";
 
 interface FooterProps {
   nome: string;
   crm: string;
-  uf: string;
   especialidade: string;
-  redesSociais?: {
-    instagram?: string;
-    facebook?: string;
-    linkedin?: string;
-    youtube?: string;
-  };
+  instagram?: string;
 }
 
-// TODO: Substituir props por dados dinâmicos do Med.ID
 export function Footer({
   nome,
   crm,
-  uf,
   especialidade,
-  redesSociais,
+  instagram,
 }: FooterProps) {
-  const socialLinks = [
-    { icon: Instagram, href: redesSociais?.instagram, label: "Instagram" },
-    { icon: Facebook, href: redesSociais?.facebook, label: "Facebook" },
-    { icon: Linkedin, href: redesSociais?.linkedin, label: "LinkedIn" },
-    { icon: Youtube, href: redesSociais?.youtube, label: "YouTube" },
-  ].filter((link) => link.href);
+  const showInstagram = instagram && instagram !== "{{instagram}}";
 
   return (
     <footer className="border-t bg-card">
@@ -36,28 +23,22 @@ export function Footer({
           <div className="text-center md:text-left">
             <p className="font-semibold text-foreground">{nome}</p>
             <p className="text-sm text-muted-foreground">
-              {especialidade} • CRM {crm}/{uf}
+              {especialidade} • CRM {crm}
             </p>
           </div>
 
           {/* Redes sociais */}
-          {socialLinks.length > 0 && (
+          {showInstagram && (
             <div className="flex items-center gap-4">
-              {socialLinks.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
-                    aria-label={link.label}
-                  >
-                    <Icon className="w-5 h-5" />
-                  </a>
-                );
-              })}
+              <a
+                href={instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
             </div>
           )}
         </div>

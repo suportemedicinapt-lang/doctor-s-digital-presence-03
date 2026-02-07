@@ -3,16 +3,15 @@ import { GraduationCap, Heart, Clock } from "lucide-react";
 interface AboutSectionProps {
   nome: string;
   especialidade: string;
-  bioCurta: string;
-  anosExperiencia: number;
+  bio: string;
+  formacao: string;
 }
 
-// TODO: Substituir props por dados dinâmicos do Med.ID
 export function AboutSection({
   nome,
   especialidade,
-  bioCurta,
-  anosExperiencia,
+  bio,
+  formacao,
 }: AboutSectionProps) {
   return (
     <section id="sobre" className="section-padding bg-section">
@@ -29,10 +28,12 @@ export function AboutSection({
               </h2>
             </div>
 
-            {/* Bio - TODO: substituir por dados dinâmicos */}
+            {/* Bio */}
             <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
               <p>
-                {bioCurta || `Sou especialista em ${especialidade}, dedicado(a) a oferecer um atendimento acolhedor e personalizado a cada paciente.`}
+                {bio && bio !== "{{bio}}" 
+                  ? bio 
+                  : `Sou especialista em ${especialidade}, dedicado(a) a oferecer um atendimento acolhedor e personalizado a cada paciente.`}
               </p>
               <p>
                 Acredito que a medicina vai além do diagnóstico: envolve escuta ativa, compreensão das necessidades individuais e um acompanhamento contínuo para garantir os melhores cuidados à sua saúde.
@@ -51,7 +52,9 @@ export function AboutSection({
               </div>
               <h3 className="font-semibold text-foreground mb-2">Formação</h3>
               <p className="text-sm text-muted-foreground">
-                Especialização em {especialidade} com formação continuada e atualização constante.
+                {formacao && formacao !== "{{formacao}}"
+                  ? formacao
+                  : `Especialização em ${especialidade} com formação continuada e atualização constante.`}
               </p>
             </div>
 
@@ -61,9 +64,7 @@ export function AboutSection({
               </div>
               <h3 className="font-semibold text-foreground mb-2">Experiência</h3>
               <p className="text-sm text-muted-foreground">
-                {anosExperiencia > 0
-                  ? `${anosExperiencia} anos de experiência na área, com milhares de pacientes atendidos.`
-                  : "Anos de dedicação à prática médica, com milhares de pacientes atendidos."}
+                Anos de dedicação à prática médica, com milhares de pacientes atendidos.
               </p>
             </div>
 

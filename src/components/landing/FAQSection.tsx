@@ -4,14 +4,17 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import type { FAQItem } from "@/types/doctor";
+
+interface FAQItem {
+  pergunta: string;
+  resposta: string;
+}
 
 interface FAQSectionProps {
   especialidade: string;
   faq: FAQItem[];
 }
 
-// TODO: Substituir props por dados dinâmicos do Med.ID
 export function FAQSection({ especialidade, faq }: FAQSectionProps) {
   return (
     <section id="faq" className="section-padding">
